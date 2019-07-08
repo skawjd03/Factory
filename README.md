@@ -2,7 +2,7 @@
 국비지원을 교육을 받는 도중 메인 프로젝트와 별개로 시간이 남아 nodejs를 개별적으로 공부하던 중 인스타그램을 만들어 보고자 했다.
 express 프레임워크를 사용했다.
 <br>
-<br><br><br
+<br><br><br>
 ## 사용한 모듈
 express - nodejs의 대표적인 웹 개발 프레임 워크<br>
 sequelize - mysql db의 orm 방식을 사용한 데이터베이스 모듈 <br>
