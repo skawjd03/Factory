@@ -1,0 +1,31 @@
+{
+  "name": "instagram",
+  "version": "0.0.1",
+  "description": "instagram 만들기",
+  "main": "app.js",
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.4",
+    "dateformat": "^3.0.3",
+    "express": "^4.17.1",
+    "express-session": "^1.16.1",
+    "fs": "0.0.1-security",
+    "morgan": "^1.9.1",
+    "multer": "^1.4.1",
+    "mysql2": "^1.6.5",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "pug": "^2.0.3",
+    "sequelize": "^5.8.6"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  },
+  "scripts": {
+    "start": "nodemon app"
+  },
+  "author": "KTH",
+  "license": "MIT"
+}

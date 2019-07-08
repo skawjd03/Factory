@@ -1,0 +1,267 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link#bootstrap-css(href='//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css', rel='stylesheet')
+    link(href='https://fonts.googleapis.com/css?family=Rokkitt', rel='stylesheet')
+    link(href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', rel='stylesheet')
+    link#bootstrap-css(href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css', rel='stylesheet')
+    script(src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js')
+    script(src='//code.jquery.com/jquery-1.11.1.min.js')
+    script(src='//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+    link(rel='icon', type='image/png', href='/img/icons/favicon.ico')
+    title= title
+    link(rel='stylesheet', href='/css/main3.css')
+    style.
+      a{
+        cursor:pointer;
+        text-decoration: none !important;
+      }
+      .timeservice{
+        opacity:0.5;
+        margin-top: 20%;
+        font-weight:bold;
+        text-align:center;
+        font-size:14pt;
+      }
+  body
+    nav.menu(style="width:100% !important")
+      #nav-container
+        #navbar
+          #left
+            a(href='/')
+              i#logo-icon.fa.fa-instagram.fa-2x(aria-hidden='true')
+            a(href='/')
+              img#logo-name(src='https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/2000px-Instagram_logo.svg.png')
+          #center
+            input#searchA(type='text', placeholder='Search', style='text-align: center')
+          #right
+            a(href='/user/home')
+              i.fa.fa-user-o.nav-icon.fa-2x(aria-hidden='true')
+      #scroll-list.searchA(style='border-radius:8px; height:300px; width:250px; position:absolute; top:5.3vh; left: 87vh; background-color:white; visibility:hidden; z-index:2000;')
+      .main-body
+    script.
+      let jsonURL = "https://codesmith-precourse.firebaseio.com/instagram/-JqL35o8u6t3dTQaFXSV.json";
+      let username = "brandonn1231";
+      $(document).ready(function () {
+      $.ajax({
+      url: 'https://codesmith-precourse.firebaseio.com/instagram/-JqL35o8u6t3dTQaFXSV.json',
+      success: function (data) {
+      data.forEach(function (element) {
+      $.ajax({
+      url: element,
+      success: function () {
+      $('.main-body').append(
+      '<div class="header">' +
+      '<span class="prf-pic"><img src="http://image.mp3.zdn.vn/thumb/165_165/avatars/f/3/f3ccdd27d2000e3f9255a7e3e2c48800_1349926257.jpg"></span>' +
+      '<span class="account-name">' + username + '</span>' +
+      '<span class="timestamp">12h</span>' +
+      '</div>' +
+      '<img src=' + element + ' class="feed-img">' +
+      '<div class="img-footer">' +
+      '<div class="comments">' +
+      '<div class="comments-content"></div>' +
+      '<div class="comments-field">' + '<span class="heart-pic"><img src="http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=110530409"></span>' + '<input type="text" class="text-box" placeholder="Add a comment..."></div>' +
+      '</div>' +
+      '</div>');
+      }
+      });
+      });
+      }
+      });
+      $(document).on('dblclick', 'img.feed-img', function () {
+      $(this).next().find('.heart-pic img').attr('src', 'http://www.pngall.com/wp-content/uploads/2016/04/Instagram-Heart-Free-Download-PNG.png');
+      });
+      $(document).on('keypress', 'input.text-box', function (value) {
+      if (value.keyCode === 13) {
+      let commentVal = $(this).val();
+      $(this).parent().parent().find('.comments-content').append('<span class="comment-name"><b>' + username + '</b></span>' + '<span class="posted-comment">' + commentVal + '</span></div></br>');
+      $(this).val('');
+      }
+      });
+      });
+      $(function(){
+      $(window).scroll(function(){  //스크롤하면 아래 코드 실행
+      var num = $(this).scrollTop();  // 스크롤값
+      if( num > 200 ){  // 스크롤을 36이상 했을 때
+      $(".menu").css("position","fixed");
+      $(".menu").css("z-index","1");
+      $(".container").css("z-index","0");
+      $(".cc").css("z-index","0");
+      $(".cc").css("margin-top","100px");
+      }else{
+      $(".menu").css("position","static");
+      $(".menu").css("z-index","-1");
+      $(".container").css("z-index","0");
+      $(".cc").css("z-index","0");
+      $(".cc").css("margin-top","0px");
+      }
+      });
+      });
+    each post,index in posts
+      .container
+        .row
+          .col-lg-6.offset-lg-3
+            .cardbox.bg-white(style="border:1px solid rgb(231, 231, 231);")
+              .cardbox-heading
+                .dropdown.float-right
+                  button.btn.btn-flat.btn-flat-icon(type='button', data-toggle='dropdown', aria-expanded='false')
+                    em.fa.fa-ellipsis-h
+                  .dropdown-menu.dropdown-scale.dropdown-menu-right(role='menu', style='position: absolute; transform: translate3d(-136px, 28px, 0px); top: 0px; left: 0px; will-change: transform;')
+                    a.dropdown-item(href='#') Hide post
+                    a.dropdown-item(href='#') Stop following
+                    a.dropdown-item(href='#') Report
+                .media.m-0
+                  .d-flex.mr-3.backs
+                    a(href='/user/'+post.maker+'/home')
+                      img.img-fluid.rounded-circle.cir(src=post.user.img, alt='User' style="width:100% !important;height:100% !important;")
+                  .media-body
+                    a(href='/user/'+post.maker+'/home' style="")
+                      p(style="font-size:14pt; color:#262626; font: inherit;") #{post.user.nick}
+              .cardbox-item
+                img.img-fluid(src=post.img, alt='Image' style="width:100% !important;")
+              .cardbox-base
+                ul.float-right
+                  li
+                    a(href="/post/"+post.id+"/commentHome")
+                      i.fa.fa-comments
+                  li
+                    a
+                      span.mr-5(name='commentCnt'+post.id) #{commentList[index].count}
+                  li
+                    a
+                      i.fa.fa-share-alt
+                  li
+                    a
+                      em.mr-3 03
+                ul
+                  li
+                    a(onclick='thumbsup('+post.id+')')
+                      i.fa.fa-thumbs-up
+                  li
+                    a(href='#')
+                      img.img-fluid.rounded-circle(src='/img/서현진1.jpg', alt='User')
+                  li
+                    a(href='#')
+                      img.img-fluid.rounded-circle(src='/img/서현진2.jpg', alt='User')
+                  li
+                    a(href='#')
+                      img.img-fluid.rounded-circle(src='/img/서현진3.jpg', alt='User')
+                  li
+                    a(href='#')
+                      img.img-fluid.rounded-circle(src='/img/서현진4.jpg', alt='User')
+                  li
+                    a
+                      span#hearts(name='thumbs'+post.id) #{post.thumbs} Likes
+              .comment_two(name='comment_two'+post.id style='padding:15px; border-bottom:1px solid rgb(231, 231, 231);')
+                a(href='/user/'+post.maker+'/home' style="") #{post.maker}
+                |  #{post.text}
+                if commentList[index].rows[0]
+                  p(style="margin:0px !important; padding: 5px 2px 0px 0px")
+                    a(href="/user/"+commentList[index].rows[0].maker+"/home" style="") #{commentList[index].rows[0].maker}
+                    |  #{commentList[index].rows[0].comment}
+                if commentList[index].rows[1]
+                  p(style="margin:0px !important; padding: 5px 2px 0px 0px") 
+                    a(href="/user/"+commentList[index].rows[1].maker+"/home" style="text-decoration:none") #{commentList[index].rows[1].maker}
+                    |  #{commentList[index].rows[1].comment}
+              .cardbox-comments
+                span.comment-avatar.float-left
+                  a(href='')
+                    img.rounded-circle(src=users.img, alt='...')
+                .search
+                  input#comment(name='textInput'+post.id placeholder='Write a comment', type='text' onchange='commentTo('+post.id+',this)')
+          if index==0
+            .col-lg-3.cc(style='position:fixed; margin-left: 900px;')
+              .media(style='padding-left: 5px; margin-bottom:8px;')
+                .d-flex.mr-3(style='width: 60px; height: 60px;')
+                  a(href="/user/home" style="text-decoration:none")
+                    img.img-fluid.rounded-circle(src=users.img, style='width: 100% !important; height: 100% !important;')
+                .media-body
+                  a(href="/user/home" style="text-decoration:none")
+                    p.m-0(style="color: #262626;font-size: 14pt;") #{users.nick}
+                    small
+                      span(style="font-size: 12pt;") #{users.name}
+              .media.m-0
+                #scroll-list(style="border-radius: 4px; background-color:white;")
+                  div(style="margin-top:12px; padding: 2px 16px 2px 16px; postion:fixed !important;")
+                    label(style="color: #999;") 스토리
+                    label(style="float:right; font-size:12px") 모두 보기
+                  each fol in followList
+                    div(style="margin-left:16px;")
+                      .media.m-0(style='padding: 2px 2px 2px 5px;')
+                        .d-flex.mr-3.backs
+                          a(href='/user/'+fol.nick+'/home' style="text-decoration:none")
+                            img.img-fluid.rounded-circle.cir(src=fol.img style="width:100% !important;height:100% !important;")
+                        .media-body
+                          a(href='/user/'+fol.nick+'/home' style="text-decoration:none")
+                            p.m-0(style="color: #262626;font-size: 14pt;") #{fol.nick}
+                            small
+                              span(style="font-size: 12pt;") #{fol.name}
+              .media.m-0
+                #scroll-list(style="border-radius: 4px;background-color:white;")
+                  div(style="margin-top:12px; padding: 2px 16px 2px 16px; postion:fixed !important;")
+                    label(style="color: #999;") 회원님을 위한 추천
+                    label(style="float:right; font-size:12px") 모두 보기
+                  a(href='#' style="text-decoration:none")
+                    p.timeservice 서비스 준비중입니다
+script.
+  function thumbsup(postid){
+      $.ajax({
+        type:'post',
+        url:'/post/'+postid+'/thumbs',
+        data:{'postid':postid},
+        success: function(r){
+          $('span[name=thumbs'+postid+']').text(r+' Likes');
+        }
+      })
+    }
+  function commentTo(id,post){
+   $.ajax({
+        type:'post',
+        url:'/post/'+id+'/comment',
+        data:{'text':$(post).val()},
+        success: function(data){
+            $('span[name=commentCnt'+id+']').text(data[0]);
+          if(data[1]){
+            $('div[name=comment_two'+id+']').append('<p>'+data[2]+' '+data[1]+'</p>');
+          }
+          $('input[name=textInput'+id+']').val('');
+        }
+      })
+    }
+  $('#searchA').on('input',()=>{
+        $('.searchA').css('visibility','visible');
+        if($('#searchA').val()===''){
+          $('.searchA').css('visibility','hidden');
+        }else{
+
+          $.ajax({
+          type:'get',
+          url:'/post/'+$('#searchA').val()+'/search',
+          data:{},
+          success:function(data){
+            console.log(data[0]);
+            $('.searchA').html('');
+            if(data[0]!=null){
+              for(var i=0; i<data[0].length; i++){
+                $('.searchA').append(`<div class="media m-0" style="background-color: white; padding: 10px 20px;"><div class="d-flex mr-3" style="background: linear-gradient(to right, red, orange); border-radius:50%; padding:2.3px; width:50px; height:50px;"><a href="/user/${data[0][i].nick}/home"><img class="img-fluid rounded-circle" src="${data[0][i].img}" alt="User" style="background-color:white; width:100% !important; height:100% !important;"></a></div><div class="media-body"><a href="/user/${data[0][i].nick}/home"><p class="m-0" style="font-size:15px;">${data[0][i].nick}</p></a><small><span>${data[0][i].name}</span></small></div></div>`);
+              }
+            }
+            if(data[1]!=null){
+              for(var hash of data[1]){
+                console.log(hash.tagname);
+                $('.searchA').append(`<div class="media m-0" style="background-color: white; padding: 10px 20px;"><div class="d-flex mr-3" style="border-radius:50%;"><a href="/post/${hash.tagname}/hashtagPost"><p style="font-size:25px;">#</p></a></div><div class="media-body"><a href="/post/${hash.tagname}/hashtagPost"><p class="m-0" style="font-size:15px;">#${hash.tagname}</p></a></div></div>`);
+              }
+            }
+          }
+          }); 
+        }
+      })
+      $('.searchA').hover(()=>{
+        $('.searchA').css('visibility','visible');
+      })
+      $('#searchA').focusout(()=>{
+        $('.searchA').css('visibility','hidden');
+      })

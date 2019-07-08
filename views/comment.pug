@@ -1,0 +1,171 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link#bootstrap-css(href='//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css', rel='stylesheet')
+    link(href='https://fonts.googleapis.com/css?family=Rokkitt', rel='stylesheet')
+    link(href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', rel='stylesheet')
+    link#bootstrap-css(href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css', rel='stylesheet')
+    script(src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js')
+    script(src='//code.jquery.com/jquery-1.11.1.min.js')
+    script(src='//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+    link(rel='icon', type='image/png', href='/img/icons/favicon.ico')
+    title= title
+    link(rel='stylesheet', href='/css/main3.css')
+  body
+    nav(style='position:fixed; z-index:1001; width:100%;')
+      #nav-container
+        #navbar
+          #left
+            a(href='/')
+              i#logo-icon.fa.fa-instagram.fa-2x(aria-hidden='true')
+            a(href='/')
+              img#logo-name(src='https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/2000px-Instagram_logo.svg.png')
+          #center
+            input#searchA(type='text', placeholder='Search', style='text-align: center; width:175px !important; height:25px !important; font-size:12pt;font: inherit; padding:1px !important;')
+          #right
+            a(href='/user/home')
+              i.fa.fa-user-o.nav-icon.fa-2x(aria-hidden='true')
+      #scroll-list.searchA(style='border-radius:8px; height:300px; width:250px; position:absolute; top:5.3vh; left: 87vh; background-color:white; visibility:hidden; z-index:2000;')
+      .main-body
+    script.
+      let jsonURL = "https://codesmith-precourse.firebaseio.com/instagram/-JqL35o8u6t3dTQaFXSV.json";
+      let username = "brandonn1231";
+      $(document).ready(function () {
+      $.ajax({
+      url: 'https://codesmith-precourse.firebaseio.com/instagram/-JqL35o8u6t3dTQaFXSV.json',
+      success: function (data) {
+      data.forEach(function (element) {
+      $.ajax({
+      url: element,
+      success: function () {
+      $('.main-body').append(
+      '<div class="header">' +
+      '<span class="prf-pic"><img src="http://image.mp3.zdn.vn/thumb/165_165/avatars/f/3/f3ccdd27d2000e3f9255a7e3e2c48800_1349926257.jpg"></span>' +
+      '<span class="account-name">' + username + '</span>' +
+      '<span class="timestamp">12h</span>' +
+      '</div>' +
+      '<img src=' + element + ' class="feed-img">' +
+      '<div class="img-footer">' +
+      '<div class="comments">' +
+      '<div class="comments-content"></div>' +
+      '<div class="comments-field">' + '<span class="heart-pic"><img src="http://www.polyvore.com/cgi/img-thing?.out=jpg&size=l&tid=110530409"></span>' + '<input type="text" class="text-box" placeholder="Add a comment..."></div>' +
+      '</div>' +
+      '</div>');
+      }
+      });
+      });
+      }
+      });
+      $(document).on('dblclick', 'img.feed-img', function () {
+      $(this).next().find('.heart-pic img').attr('src', 'http://www.pngall.com/wp-content/uploads/2016/04/Instagram-Heart-Free-Download-PNG.png');
+      });
+      $(document).on('keypress', 'input.text-box', function (value) {
+      if (value.keyCode === 13) {
+      let commentVal = $(this).val();
+      $(this).parent().parent().find('.comments-content').append('<span class="comment-name"><b>' + username + '</b></span>' + '<span class="posted-comment">' + commentVal + '</span></div></br>');
+      $(this).val('');
+      }
+      });
+      });
+    div(style='height:150px;')
+    div(style='z-index:1000;')
+      .container
+        .col-sm-8(style='padding:0px !important;')
+          .cardbox.bg-white(style='border-radius:8px; border:1.5px solid rgb(231,232,231);')
+            .cardbox-item
+              img.img-fluid(src=posts.img, alt='Image', style='width:100% !important; height:736px !important')
+        .col-sm-4(style='padding: 0px !important;')
+          .col-sm-12(style='padding: 0px !important;')
+            #scroll-list.col-sm-12(style='margin-top : 0px !important; height: 622px; padding:0px !important')
+              .media.m-0(style=' position: fixed; background-color: white; width:39.5vh; padding: 10px 15px; border-bottom: 1px solid rgb(231,232,231); border-right: 1px solid rgb(231,232,231);')
+                .d-flex.mr-3(style='width:60px; height:60px;')
+                  a(href='/user/home')
+                    img.img-fluid.rounded-circle(src=posts.user.img, alt='User', style='width:100% !important; height:100% !important;')
+                .media-body
+                  a(href='/user/home')
+                    p.m-0(style='font-size:22px;')
+                      | #{posts.maker}
+                  small
+                    span #{posts.user.name}
+              div(style='height: 80px;')
+              each com in comments
+                .media.m-0(style='background-color: white; padding: 10px 20px;')
+                    .d-flex.mr-3(style='background: linear-gradient(to right, red, orange); border-radius:50%; padding:2.3px; width:50px; height:50px;')
+                        a(href='/user/zaraGung/home')
+                            img.img-fluid.rounded-circle(src='/img/서현진2.jpg', alt='User', style='background-color:white; width:100% !important; height:100% !important;')
+                    .media-body
+                        a(href='/user/zaraGung/home')
+                            p.m-0(style='font-size:15px;')
+                            | #{com.maker}
+                        small
+                            span #{com.comment}
+            div(style='height: 189px;')
+              .cardbox-base
+                ul(style="width:100%; padding: 10px 0px 10px 20px !important; margin-left:0px !important; ")
+                  li
+                    a(onclick='thumbsup('+posts.id+')')
+                      i.fa.fa-thumbs-up
+                  li
+                    a
+                      span(name='thumbInt' + posts.id) #{posts.thumbs} Likes
+              div(style='background-color: black;')
+                input(name='textInput'+posts.id type='text', style='padding: 15px; width: 100%;', placeholder='댓글 달기...', onchange='commentTo('+posts.id+',this)')
+    script.
+        function thumbsup(postid){
+            $.ajax({
+                type:'post',
+                url:'/post/'+postid+'/thumbs',
+                data:{'postid':postid},
+                success: function(r){
+                    $('span[name=thumbInt'+postid+']').text(r+' Likes');
+                }
+            })
+            }
+        function commentTo(id,post){
+        $.ajax({
+                type:'post',
+                url:'/post/'+id+'/comment',
+                data:{'text':$(post).val()},
+                success: function(data){
+                    location.reload();
+                }
+            })
+        }
+        $('#searchA').on('input',()=>{
+        $('.searchA').css('visibility','visible');
+        if($('#searchA').val()===''){
+          $('.searchA').css('visibility','hidden');
+        }else{
+
+          $.ajax({
+          type:'get',
+          url:'/post/'+$('#searchA').val()+'/search',
+          data:{},
+          success:function(data){
+            console.log(data[0]);
+            $('.searchA').html('');
+            if(data[0]!=null){
+              for(var i=0; i<data[0].length; i++){
+                $('.searchA').append(`<div class="media m-0" style="background-color: white; padding: 10px 20px;"><div class="d-flex mr-3" style="background: linear-gradient(to right, red, orange); border-radius:50%; padding:2.3px; width:50px; height:50px;"><a href="/user/${data[0][i].nick}/home"><img class="img-fluid rounded-circle" src="${data[0][i].img}" alt="User" style="background-color:white; width:100% !important; height:100% !important;"></a></div><div class="media-body"><a href="/user/${data[0][i].nick}/home"><p class="m-0" style="font-size:15px;">${data[0][i].nick}</p></a><small><span>${data[0][i].name}</span></small></div></div>`);
+              }
+            }
+            if(data[1]!=null){
+              for(var hash of data[1]){
+                console.log(hash.tagname);
+                $('.searchA').append(`<div class="media m-0" style="background-color: white; padding: 10px 20px;"><div class="d-flex mr-3" style="border-radius:50%;"><a href="/post/${hash.tagname}/hashtagPost"><p style="font-size:25px;">#</p></a></div><div class="media-body"><a href="/post/${hash.tagname}/hashtagPost"><p class="m-0" style="font-size:15px;">#${hash.tagname}</p></a></div></div>`);
+              }
+            }
+          }
+          }); 
+        }
+      })
+      $('.searchA').hover(()=>{
+        $('.searchA').css('visibility','visible');
+      })
+      $('#searchA').focusout(()=>{
+        $('.searchA').css('visibility','hidden');
+      })
+    
